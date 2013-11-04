@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Imdb.Mvc.Models.ReviewViewModel>
+
+@foreach (var review in Model)
+{
+    @Html.Partial("_Review", review);
+}

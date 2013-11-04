@@ -1,0 +1,89 @@
+﻿@model Imdb.Mvc.Models.MovieViewModel
+
+<h2>Movie</h2>
+
+<div>
+    <img src="@Model.ImageUrl" alt="@Model.Title" width="200" />
+    <div class="row">
+        <div>
+            <strong>@Html.DisplayNameFor(model => model.Title)</strong>:
+            @Html.DisplayFor(model => model.Title)
+        </div>
+        <div>
+            <strong>@Html.DisplayNameFor(model => model.Duration)</strong>:
+            @Html.DisplayFor(model => model.Duration)
+        </div>
+        <div>
+            <strong>@Html.DisplayNameFor(model => model.Description)</strong>:
+            @Html.DisplayFor(model => model.Description)
+        </div>
+
+        @foreach (var actor in Model.Actors)
+        {
+            <a href="/Home/ActorDetails/@actor.Id">@actor.Name</a>@:,
+        }
+    </div>
+</div>
+
+<div id="reviews">
+    <h4>Reviews</h4>
+    @foreach (var review in Model.Reviews)
+    {
+        @Html.Partial("_Review", review);
+    }
+</div>
+
+<div id="reviewArea">
+    @if (User.Identity.IsAuthenticated && Model.UserCanVote)
+    {
+        using (Ajax.BeginForm("PostReview", new AjaxOptions
+            {
+                HttpMethod = "Post",
+                InsertionMode = InsertionMode.InsertAfter,
+                UpdateTargetId = "reviews",
+                OnFailure = "reviewPostFailure",
+                OnSuccess = "onPostReviewSuccess"
+            }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("MovieId", Model.Id)
+            <div>
+                TItle:<br />
+                <input type="text" name="title" />
+            </div>
+            <div>
+                Content:<br />
+                <textarea name="content"></textarea>
+            </div>
+            <div>
+                Rating:<br />
+                <input type="number" name="rating" />
+            </div>
+            <div>
+                <input type="submit" value="Submit review" class="btn" />
+            </div>
+        }
+    }
+</div>
+
+<p>
+    @Html.ActionLink("Back to Movies", "Index", null, new { @class = "btn" })
+</p>
+
+<script>
+    function reviewPostFailure() {
+        alert("The review is not valid.");
+    }
+
+    function onPostReviewSuccess() {
+        $("#reviewArea").hide();
+    }
+</script>
+
+
+<style scoped>
+    img {
+        float: left;
+        margin-right: 30px;
+    }
+</style>

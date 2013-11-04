@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20827.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imdb.Models", "IMDB.Models\Imdb.Models.csproj", "{DA81BBBF-04B9-4B48-A66B-B08143FBDFE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imdb.Data", "IMDB.Data\Imdb.Data.csproj", "{7F0FC6DC-31C5-445D-BA8C-1BE9FEF381FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imdb.Mvc", "Imdb.Mvc\Imdb.Mvc.csproj", "{82B91413-F7CE-4EF1-8DDA-2160017863D5}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://paolo23.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = IMDB.Data\\Imdb.Data.csproj
+		SccProjectName1 = IMDB.Data
+		SccLocalPath1 = IMDB.Data
+		SccProjectUniqueName2 = IMDB.Models\\Imdb.Models.csproj
+		SccProjectName2 = IMDB.Models
+		SccLocalPath2 = IMDB.Models
+		SccProjectUniqueName3 = Imdb.Mvc\\Imdb.Mvc.csproj
+		SccProjectName3 = Imdb.Mvc
+		SccLocalPath3 = Imdb.Mvc
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA81BBBF-04B9-4B48-A66B-B08143FBDFE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA81BBBF-04B9-4B48-A66B-B08143FBDFE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA81BBBF-04B9-4B48-A66B-B08143FBDFE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA81BBBF-04B9-4B48-A66B-B08143FBDFE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F0FC6DC-31C5-445D-BA8C-1BE9FEF381FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F0FC6DC-31C5-445D-BA8C-1BE9FEF381FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F0FC6DC-31C5-445D-BA8C-1BE9FEF381FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F0FC6DC-31C5-445D-BA8C-1BE9FEF381FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82B91413-F7CE-4EF1-8DDA-2160017863D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82B91413-F7CE-4EF1-8DDA-2160017863D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82B91413-F7CE-4EF1-8DDA-2160017863D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82B91413-F7CE-4EF1-8DDA-2160017863D5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

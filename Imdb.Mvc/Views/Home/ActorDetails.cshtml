@@ -1,0 +1,42 @@
+﻿@model Imdb.Mvc.Models.DetailedActorViewModel
+@{
+    ViewBag.Title = "Actor Details";
+}
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <img src="@Model.ImageUrl" alt="@Model.ImageUrl" width="200" />
+    <div class="row">
+        <div>
+            <strong>@Html.DisplayNameFor(model => model.Name)</strong>:
+            @Html.DisplayFor(model => model.Name)
+        </div>
+        <div>
+            <strong>@Html.DisplayNameFor(model => model.Description)</strong>:
+            @Html.DisplayFor(model => model.Description)
+        </div>
+        <div>
+            <strong>@Html.DisplayNameFor(model => model.BirthPlace)</strong>:
+            @Html.DisplayFor(model => model.BirthPlace)
+        </div>
+        <div>
+            <strong>@Html.DisplayNameFor(model => model.BirthYear)</strong>:
+            @Html.DisplayFor(model => model.BirthYear)
+        </div>
+        <div>
+            @*<strong>Movies</strong>:*@
+            @foreach (var movie in Model.Movies)
+            {
+                <a href="/Home/ActorDetails/@movie.Id">@movie.Name</a>@:,
+            }
+        </div>
+    </div>
+</div>
+
+<style scoped>
+    img {
+        float: left;
+        margin-right: 30px;
+    }
+</style>
+

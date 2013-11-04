@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Imdb.Mvc.Areas.Admin.ViewModels.PersonViewModel>
+
+<h2>Manage People</h2>
+
+@(Html.Kendo().Grid<Imdb.Mvc.Areas.Admin.ViewModels.PersonViewModel>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.Name);
+        columns.Bound(c => c.JobsAsString);
+        columns.Bound(c => c.Description);
+        columns.Bound(c => c.BirthYear);
+        columns.Bound(c => c.BirthPlace);
+        
+        columns.Command(command => 
+                    { 
+                        command.Edit().UpdateText("Save");
+                        command.Destroy();
+                    }).Width(200).Title("Commands");
+    })
+    .ToolBar(toolbar => toolbar.Create())
+    .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("_PersonCreateEdit"))
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(10)
+        .ServerOperation(true)
+        .Model(model => model.Id(c => c.Id))
+        .Create(create => create.Action("Create", "Person"))
+        .Read(read => read.Action("Read", "Person"))
+        .Update(update => update.Action("Update", "Person"))
+        .Destroy(destroy => destroy.Action("Destroy", "Person"))
+    )
+)

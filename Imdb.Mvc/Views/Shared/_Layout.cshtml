@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - IMDB</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+    @Styles.Render("~/Content/kendo")
+    @Scripts.Render("~/bundles/kendo")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("IMDB", "Index", "Home", new { area = "" }, new { @class = "brand" })
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("My Reviews", "MyReviews", "Home", new { area = "" }, null)</li>
+                        @if (User.IsInRole("admin"))
+                        {
+                        <li class="btn-group">
+                            <button type="button" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                                Admin
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Jobs", "Index", "Jobs", new { area = "Admin" }, null)</li>
+                                <li>@Html.ActionLink("People", "Index", "Person", new { area = "Admin" }, null)</li>
+                                <li>@Html.ActionLink("Categories", "Index", "Categories", new { area = "Admin" }, null)</li>
+                                <li>@Html.ActionLink("Movies", "Index", "Movies", new { area = "Admin" }, null)</li>
+                            </ul>
+                        </li>
+                        }
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - IMDB</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

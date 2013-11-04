@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Imdb.Mvc.Models.ReviewViewModel>
+
+<h2>Edit your reviews</h2>
+
+@(Html.Kendo().Grid<Imdb.Mvc.Models.ReviewViewModel>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.Title);
+        columns.Bound(c => c.MovieTitle);
+        columns.Bound(c => c.Rating);
+        columns.Bound(c => c.AuthorUserName);
+        
+        columns.Command(command =>
+        {
+            command.Edit().UpdateText("Save");
+            command.Destroy();
+        }).Width(200).Title("Commands");
+    })
+    .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("_ReviewCreateEdit"))
+    .Pageable().Sortable().Scrollable()
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(10)
+        .Model(model => model.Id(c => c.Id))
+        .Read(read => read.Action("Read", "Reviews"))
+        .Update(update => update.Action("Update", "Reviews"))
+        .Destroy(update => update.Action("Destroy", "Reviews"))
+    )
+)

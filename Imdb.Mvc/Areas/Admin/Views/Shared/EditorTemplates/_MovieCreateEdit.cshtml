@@ -1,0 +1,185 @@
+﻿@model Imdb.Mvc.Areas.Admin.ViewModels.MovieViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.Id)
+
+    <fieldset class="pagination-centered">
+        <legend>Movie</legend>
+
+        <div>
+            @Html.LabelFor(model => model.Title, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Description, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Description)
+                @Html.ValidationMessageFor(model => model.Description, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Duration, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Duration)
+                @Html.ValidationMessageFor(model => model.Duration, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div>
+            @Html.Label("Categories")
+            <div class="controls">
+                @Html.EditorFor(model => model.CategoriesAsString)
+                @Html.ValidationMessageFor(model => model.CategoriesAsString, null, new { disabled = "disabled" })
+            </div>
+
+            <div class="controls">
+                @(Html.Kendo().MultiSelect()
+                  .Name("categories")
+                  .DataTextField("Name")
+                  .DataValueField("Id")
+                  .Placeholder("Select categories...")
+                  .AutoBind(true)
+                  .DataSource(source =>
+                  {
+                      source.Read(read =>
+                      {
+                          read.Action("GetCategories", "Movies");
+                      })
+                      .ServerFiltering(true);
+                  })
+                  .Value(new[] {
+                      new { Name = "Uncle Bob's Organic Dried Pears", Id = 7 }
+                  }
+                  )
+                )
+            </div>
+        </div>
+
+        <div>
+            @Html.Label("Writers")
+            <div class="controls">
+                @Html.TextBoxFor(model => model.WritersAsString, null, new { disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.WritersAsString, null, new { @class = "help-inline" })
+            </div>
+
+            <div class="controls">
+                @(Html.Kendo().MultiSelect()
+                  .Name("writers")
+                  .DataTextField("Name")
+                  .DataValueField("Id")
+                  .Placeholder("Select writers...")
+                  .AutoBind(true)
+                  .DataSource(source =>
+                  {
+                      source.Read(read =>
+                      {
+                          read.Action("GetPeople", "Movies");
+                      })
+                      .ServerFiltering(true);
+                  })
+                  .Value(new[] {
+                      new { Name = "Uncle Bob's Organic Dried Pears", Id = 7 }
+                  }
+                  )
+                )
+            </div>
+        </div>
+
+        <div>
+            @Html.Label("Actors")
+            <div class="controls">
+                @Html.TextBoxFor(model => model.ActorsAsString, null, new { disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.ActorsAsString, null, new { @class = "help-inline" })
+            </div>
+
+            <div class="controls">
+                @(Html.Kendo().MultiSelect()
+                  .Name("actors")
+                  .DataTextField("Name")
+                  .DataValueField("Id")
+                  .Placeholder("Select actors...")
+                  .AutoBind(true)
+                  .DataSource(source =>
+                  {
+                      source.Read(read =>
+                      {
+                          read.Action("GetPeople", "Movies");
+                      })
+                      .ServerFiltering(true);
+                  })
+                  .Value(new[] {
+                      new { Name = "Uncle Bob's Organic Dried Pears", Id = 7 }
+                  }
+                  )
+                )
+            </div>
+        </div>
+
+        <div>
+            @Html.Label("Directors")
+            <div class="controls">
+                @Html.TextBoxFor(model => model.DirectorsAsString, null, new { disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.DirectorsAsString, null, new { @class = "help-inline" })
+            </div>
+
+            <div class="controls">
+                @(Html.Kendo().MultiSelect()
+                  .Name("directors")
+                  .DataTextField("Name")
+                  .DataValueField("Id")
+                  .Placeholder("Select directors...")
+                  .AutoBind(true)
+                  .DataSource(source =>
+                  {
+                      source.Read(read =>
+                      {
+                          read.Action("GetPeople", "Movies");
+                      })
+                      .ServerFiltering(true);
+                  })
+                  .Value(new[] {
+                      new { Name = "Uncle Bob's Organic Dried Pears", Id = 7 }
+                  }
+                  )
+                )
+            </div>
+        </div>
+
+        <div>
+            @Html.Label("Characters")
+            <div class="controls">
+                @Html.TextBoxFor(model => model.CharactersAsString, null, new { disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.CharactersAsString, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div>
+            @Html.Label("Reviews")
+            <div class="controls">
+                @Html.TextBoxFor(model => model.ReviewsAsString, null, new { })
+                @Html.ValidationMessageFor(model => model.ReviewsAsString, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div>
+            @Html.Label("Images")
+            <div class="controls">
+                @Html.TextBoxFor(model => model.ImageUrl, null, new { } )
+                @Html.ValidationMessageFor(model => model.ImageUrl, null, new { @class = "help-inline" })
+            </div>
+        </div>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

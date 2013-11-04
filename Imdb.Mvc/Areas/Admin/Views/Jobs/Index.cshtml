@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Imdb.Models.Job>
+
+<h2>Manage Jobs</h2>
+
+@(Html.Kendo().Grid<Imdb.Models.Job>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.Name);
+        columns.Command(command => 
+                    { 
+                        command.Edit().UpdateText("Save"); 
+                        command.Destroy(); 
+                    }).Width(200).Title("Commands");
+    })
+    .ToolBar(toolbar => toolbar.Create())
+    .Editable(editable => editable.Mode(GridEditMode.PopUp))
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .PageSize(10)
+        .Model(model => model.Id(c => c.Id))
+        .Create(update => update.Action("Create", "Jobs"))
+        .Read(read => read.Action("Read", "Jobs"))
+        .Update(update => update.Action("Update", "Jobs"))
+        .Destroy(update => update.Action("Destroy", "Jobs"))
+    )
+)

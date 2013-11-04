@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Movie>
+
+<form action="/" method="post" id="autocompleteForm">
+    @(Html.Kendo()
+    .AutoComplete()
+    .Name("moviesAutoComplete")
+    .DataTextField("Title")
+    .MinLength(3)
+    .Placeholder("Enter movie title")
+    .Events(ev =>
+        {
+            ev.Select("selectAutoComplete");
+        })
+    .DataSource(data =>
+    {
+        data.Read(read =>
+            {
+                read.Action("GetAutoCompleteMovies", "Home")
+                    .Data("onAdditionalData");
+            })
+            .ServerFiltering(true);
+    }))
+
+    <input type="submit" value="Search" class="btn" />
+</form>
+
+<script>
+    function onAdditionalData() {
+        return {
+            text: $('#moviesAutoComplete').val(),
+        }
+    }
+
+    function selectAutoComplete(e) {
+        var id = this.dataItem(e.item.index()).Id;
+        console.log(id);
+        $("#autocompleteForm").attr("action", "/Home/Movie/" + id);
+    }
+</script>
+
+<script type="text/x-kendo-tmpl" id="template">
+    <div class="movie">
+        <a href="Home/Movie/#:Id#">
+            <img src="#:ImageUrl#" alt="#:Title# image" width="300" />
+        </a>
+        <h3>#:Title#</h3>
+    </div>
+</script>
+
+
+@(Html.Kendo().ListView<Movie>(Model)
+    .Name("listView")
+    .TagName("div")
+    .ClientTemplateId("template")
+    .DataSource(dataSource =>
+    {
+        dataSource.Read(read => read.Action("ReadMovies", "Home"));
+        dataSource.PageSize(3);
+    })
+    .Pageable()
+)
+
+<style scoped>
+    .movie {
+        display: inline-block;
+        margin-right: 10px;
+        padding: 20px;
+    }
+
+    h3 {
+        text-align: center;
+    }
+</style>

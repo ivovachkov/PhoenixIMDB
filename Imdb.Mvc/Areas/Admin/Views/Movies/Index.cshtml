@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Imdb.Mvc.Areas.Admin.ViewModels.MovieViewModel>
+
+<h2>Manage Movies</h2>
+
+@(Html.Kendo().Grid<Imdb.Mvc.Areas.Admin.ViewModels.MovieViewModel>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.Title);
+        columns.Bound(c => c.Description);
+        columns.Bound(c => c.Duration);
+        columns.Bound(c => c.CategoriesAsString);
+        columns.Bound(c => c.ImageUrl);
+        columns.Bound(c => c.ReviewsAsString);
+        columns.Bound(c => c.WritersAsString);
+        columns.Bound(c => c.DirectorsAsString);
+        columns.Bound(c => c.ActorsAsString);
+        columns.Bound(c => c.CharactersAsString);
+        
+        columns.Command(command => 
+                    { 
+                        command.Edit().UpdateText("Save");
+                        command.Destroy();
+                    }).Width(200).Title("Commands");
+    })
+    .ToolBar(toolbar => toolbar.Create())
+    .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("_MovieCreateEdit"))
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(10)
+        .ServerOperation(true)
+        .Model(model => model.Id(c => c.Id))
+        .Create(create => create.Action("Create", "Movies"))
+        .Read(read => read.Action("Read", "Movies"))
+        .Update(update => update.Action("Update", "Movies"))
+        .Destroy(destroy => destroy.Action("Destroy", "Movies"))
+    )
+)
